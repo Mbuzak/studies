@@ -1,6 +1,6 @@
 Szyfr Cezara oraz szyfr afiniczny
 
-1. Szyfrowanie
-2. Odszyfrowywanie
-3. Kryptoanaliza z użyciem tekstu jawnego
-4. Kryptoanaliza w oparciu o kryptogram
+1. Szyfrowanie: "plain.txt" + "key.txt" -> "crypto.txt"
+2. Odszyfrowywanie: "crypto.txt" + "key.txt" -> "decrypt.txt"
+3. Kryptoanaliza z użyciem tekstu jawnego: "crypto.txt" + "extra.txt" -> "keyfound.txt" + -> "decrypt.txt"
+4. Kryptoanaliza w oparciu o kryptogram: "crypto.txt" -> "decryp.txtt"
