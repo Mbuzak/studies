@@ -1,3 +1,4 @@
-OS for program execution
-lab1 - Win10
-lab2 - WSL
+Base programming language: C++
+The required OS: Linux
+
+WSL is not sufficient for some tasks
