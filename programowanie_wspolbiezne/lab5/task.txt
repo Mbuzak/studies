@@ -1,0 +1,12 @@
+Zadanie 5. (czas: na 28.04.2022) 
+
+Utworzyć program serwera udostępniającego dwie kolejki komunikatów IPC: wejściową i wyjściową, oraz program klienta przesyłającego pojedyncze zapytanie z PID-em swojego procesu jako typem komunikatu, a następnie odbierającego odpowiedź z drugiej kolejki. (Obie kolejki wspólne dla serwera i wszystkich klientów)
+
+Serwer realizuje funkcję słownika polsko-angielskiego czyli otrzymuje napis zawierający słowo polskie i odsyła odpowiadające mu słowo angielskie lub komunikat "Nie znam takiego słowa". Do testowania wystarczy kilka słów w słowniku. 
+
+UWAGI 
+
+przyjąć, że numery (klucze) obu kolejek serwera są ustalone i znane klientowi.
+ponieważ są osobne kolejki wejściowa i wyjściowa, serwer może odbierać komunikaty dowolnego typu (parametr mtype = 0), a odpowiedzi do klientów mogę iść do wspólnej kolejki bo rozróżni je typ będący  numerem procesu klienta
+w czasie testowania uwzględnić sytuację, w której dwóch klientów umieściło zapytania w kolejce - trzeba wprowadzić opóźnienie w serwerze, żeby uzyskać taką sytuację
+materiały z wykładu:  kolejki komunikatów IPC i  przykłady z wykładu (do kolejek IPC)
