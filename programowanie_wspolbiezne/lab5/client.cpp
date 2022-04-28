@@ -54,7 +54,7 @@ int main(int argc, char *argv[]) {
 	cout << "Oczekiwanie na odpowiedź.." << endl << endl;
 	sleep(3);
 	
-	if ( msgrcv(msgid_client, &msg, MAX_SIZE, 0, 0) == -1) {
+	if ( msgrcv(msgid_client, &msg, MAX_SIZE, pid, 0) == -1) {
 		cout << "error" << endl;
 		exit(1);
 	}
