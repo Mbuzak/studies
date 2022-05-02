@@ -1,0 +1,5 @@
+Zadanie 6. (czas: na 5.05.2022) Zaprogramować grę w "kółko i krzyżyk" dla dwóch graczy (plansza - tabela 3x3, wypełniona spacjami, znakami 'X' lub 'O'). Wymaganie techniczne: umieścić planszę w pamięci współdzielonej, zapewnić synchronizację dostępu przy użyciu semaforów. 
+
+Można się wzorować na sposobie synchronizacji dwóch komunikujących się programów  rozm1a.c, rozm2a.c  ale należy zrobić jeden (uniwersalny) program do użytku obu graczy - wstępną rywalizację o wykonanie pierwszego ruchu (i używanie znaków 'X') wygrywa ten proces, który jako pierwszy utworzy któryś z semaforów albo pamięć współdzieloną. W programie wyscig.c  (omawianym na wykładzie z 11.04.2022) jest przykład ilustrujący jak to można zrobić przy użyciu flag ...IPC_CREAT|IPC_EXCL .... (Rozwiązanie zrobione nie jako jeden program ale jako dwa będzie niżej ocenione.)
+
+Program powinien sprawdzać prawidłowość ruchów (wykluczać pola już zajęte i poza planszą), rozpoznawać sytuację wygranej, przegranej i remisu oraz  wyświetlać obu graczom odpowiednie komunikaty.
