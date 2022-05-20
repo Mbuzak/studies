@@ -1,5 +1,6 @@
-# Autor: Marian Buzak
+# Autor: Marian Buzak, 266381
 # 01.04.2022
+# 95 / 100 - powinno być uruchamiane z linii poleceń
 
 
 def is_letter(nr):
