@@ -9,3 +9,5 @@
 **Lab 4** Kolejki fifo i sygnały  
 **Lab 5** Kolejki komunikatów IPC  
 **Lab 6** Pamięć współdzielona i semafory  
+**Lab 7** Gniazda UDP  
+**Lab 10** Gra  
