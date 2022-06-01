@@ -1,5 +1,5 @@
 #include <unistd.h>
-#include "helper.h"
+#include "helper.hpp"
 
 using namespace std;
 
@@ -26,7 +26,6 @@ int main(int argc, char *argv[]) {
 	}
 	cout << "Successful inet operation" << endl;
 	
-	//unlink();
 	if ( bind(socket_id, (struct sockaddr *) &server, sizeof(server) ) < 0 ) {
 		perror("bind socket error");
 		exit(0);
@@ -39,8 +38,6 @@ int main(int argc, char *argv[]) {
 	int position;
 	int remained_edges = 15;
 	char buffer_client1[10], buffer_client2[10];
-	//char *buffer_client1 = new char[10];
-	//char *buffer_client2 = new char[10];
 	
 	
 	if ( recvfrom(socket_id, buffer_client1, 10, 0,
@@ -88,31 +85,23 @@ int main(int argc, char *argv[]) {
 			perror("sendto");
 			exit(0);
 		}
-		cout << "Client 1..." << endl;
-		
 		
 		if ( recvfrom(socket_id, buffer_client1, 10, 0,
 			 (struct sockaddr *) &client1, &client_len ) < 0 ) {
 			perror("recvfrom client 1 error");
 			exit(0);
 		}
-		cout << buffer_client1 << endl;
-		
-		
-		buffer_client1[0] = toupper(buffer_client1[0]);
-		buffer_client1[1] = toupper(buffer_client1[1]);
 		
 		position = make_move(edges, buffer_client1);
 		if ( position >= 0 ) {
 			edges[position].color = RED;
 			remained_edges--;
 		}
-		cout << "Pozostało krawędzi: " << remained_edges << endl;
 		
 		if ( remained_edges <= 0 ) {
-			//scoreboard(edges);
-			running = false;
-			break;
+			remained_edges = 15;
+			reset_edges(edges);
+			continue;
 		}
 		
 		// player 2
@@ -121,34 +110,27 @@ int main(int argc, char *argv[]) {
 			perror("sendto");
 			exit(0);
 		}
-		cout << "Client 2..." << endl;
-		
 		
 		if ( recvfrom(socket_id, buffer_client2, 10, 0,
 			 (struct sockaddr *) &client2, &client_len ) < 0 ) {
 			perror("recvfrom client 1 error");
 			exit(0);
 		}
-		cout << buffer_client2 << endl;
-		
-		buffer_client2[0] = toupper(buffer_client2[0]);
-		buffer_client2[1] = toupper(buffer_client2[1]);
 		
 		position = make_move(edges, buffer_client2);
 		if ( position >= 0 ) {
 			edges[position].color = BLUE;
 			remained_edges--;
 		}
-		cout << "Pozostało krawędzi: " << remained_edges << endl;
 		
 		if ( remained_edges <= 0 ) {
-			//scoreboard(edges);
-			running = false;
-			break;
+			remained_edges = 15;
+			reset_edges(edges);
+			continue;
 		}
-		
-		//cout << endl;
 	}
+	
+	delete edges;
 	
 	return 0;
 }

@@ -1,5 +1,5 @@
-#include "helper.h"
-#include "GUI_helper.h"
+#include "helper.hpp"
+#include "GUI_helper.hpp"
 
 using namespace std;
 
@@ -80,9 +80,9 @@ int main(int argc, char *argv[]) {
 		while ( true ) {
 			show_game(edges);
 			
-			if ( event.type == Expose && event.xexpose.count == 0 ) {
+			/*if ( event.type == Expose && event.xexpose.count == 0 ) {
 				draw();
-			}
+			}*/
 			
 			if ( event.type == KeyPress && XLookupString(&event.xkey, text, 255, &key, 0) == 1 ) {
 				if ( text[0] == 'q' ) {
@@ -103,6 +103,13 @@ int main(int argc, char *argv[]) {
 				// case when user double click same letter
 				if ( line[0] == line[1] ) line[1] = ' ';
 				
+				// check invalid input
+				if ( line[0] != ' ' and line[1] != ' ' and
+				     make_move(edges, line) < 0 ) {
+					cout << "Ta krawędź jest już zajęta. Wybierz inną" << endl;
+					reset_line(line);
+				}
+				
 				// send message
 				if ( line[0] != ' ' and line[1] != ' ' ) {
 					buffer = line;
@@ -118,6 +125,7 @@ int main(int argc, char *argv[]) {
 					edges[position].color = color;
 					
 					reset_line(line);
+					//XClearWindow(dis, win);
 					break;
 				}
 				
@@ -127,8 +135,23 @@ int main(int argc, char *argv[]) {
 		if ( empty_edges(edges) <= 1 ) {
 			fill_last_edge(edges, color);
 			scoreboard(edges);
+			cout << "Czy chcesz zagrać ponownie? y/n";
 			
-			while ( true ) show_game(edges);
+			while ( true ) {
+				show_game(edges);
+				
+				if ( event.type == KeyPress && XLookupString(&event.xkey, text, 255, &key, 0) == 1 ) {
+					if ( text[0] == 'n' ) {
+						close();
+					}
+					
+					else if ( text[0] == 'y' ) {
+						reset_edges(edges);
+						XClearWindow(dis, win);
+						break;
+					}
+				}
+			}
 		}
 		
 		cout << endl << "Następna runda" << endl;
