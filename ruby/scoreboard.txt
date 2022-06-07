@@ -1,0 +1,3 @@
+pies,4,2,normalny
+ryba,3,2,normalny
+kot,2,2,normalny

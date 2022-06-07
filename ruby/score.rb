@@ -1,8 +1,10 @@
 class Score
 	attr_reader :name, :score
-	def initialize(name, score)
+	def initialize(name, score, rounds, level)
 		@name = name
 		@score = score
+		@rounds = rounds
+		@level = level
 	end
 	
 	def get_rank
@@ -16,7 +18,11 @@ class Score
 	end
 	
 	def to_s
-		"#{@name} | #{@score} | #{get_rank}"
+		"#{@name} | #{@rounds} | #{get_rank}"
+	end
+	
+	def to_txt
+		return "#{@name},#{@score},#{@rounds},#{@level}"
 	end
 end
 
@@ -45,7 +51,8 @@ class Scoreboard
 	end
 	
 	def to_s
-		ret = "Wyniki (top #{@size})\n--------\n"
+		ret = "\nWyniki (top #{@size})\n--------\n"
+		ret += "Imię | Poziomy | Wynik\n"
 		p = 1
 		for obj in @scores
 			ret += "#{p}. #{obj}\n"
@@ -53,6 +60,16 @@ class Scoreboard
 		end
 		
 		ret
+	end
+	
+	def to_txt
+		ret = ""
+		
+		for obj in @scores
+			ret += "#{obj.to_txt}\n"
+		end
+		
+		return ret
 	end
 end
 
@@ -62,15 +79,16 @@ end
 def tests()
 	sb = Scoreboard.new(10)
 	
-	s1 = Score.new("jan", 10)
-	s2 = Score.new("piotr", 15)
-	s3 = Score.new("tomasz", 12)
+	s1 = Score.new("jan", 10, 2, "normalny")
+	s2 = Score.new("piotr", 15, 3, "trudny")
+	s3 = Score.new("tomasz", 12, 5, "łatwy")
 	
 	sb.append(s1)
 	sb.append(s2)
 	sb.append(s3)
 	
 	puts sb
+	#puts sb.to_txt
 end
 
 #tests()
