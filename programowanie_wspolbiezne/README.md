@@ -10,4 +10,4 @@
 **Lab 5** Kolejki komunikatów IPC  
 **Lab 6** Pamięć współdzielona i semafory  
 **Lab 7** Gniazda UDP  
-**Lab 10** Gra  
+**Lab 10** Gra(projekt końcowy)
