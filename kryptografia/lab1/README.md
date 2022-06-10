@@ -8,6 +8,3 @@
 ```
 python cezar.py
 ```
-
-### 90%
-program should have parameters instead input() operation
