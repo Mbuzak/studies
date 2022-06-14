@@ -1,4 +1,11 @@
-Game execution
+### Supported OS
+Windows, Linux
+
+### Linux instalation
 ```
-ruby game.rb
+sudo apt install ruby-full
+```
+### Game execution
+```
+ruby main.rb
 ```
