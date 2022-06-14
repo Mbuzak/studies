@@ -1,5 +1,5 @@
 class Score
-	attr_reader :name, :score
+	attr_reader :rounds, :level
 	def initialize(name, score, rounds, level)
 		@name = name
 		@score = score
@@ -8,12 +8,26 @@ class Score
 	end
 	
 	def get_rank
-		if @score < 12
+		if @level == "trudny" and @rounds >= 6
+			"king"
+		elsif @level == "trudny" and @rounds >= 4
+			"queen"
+		elsif @level == "trudny"
 			"pawn"
-		elsif @score == 12
-			"knight"
-		else
+		
+		elsif @level == "normalny" and @rounds >= 6
 			"rook"
+		elsif @level == "normalny" and @rounds >= 4
+			"bishop"
+		elsif @level == "normalny"
+			"pawn"
+		
+		elsif @level == "łatwy" and @rounds >= 6
+			"bishop"
+		elsif @level == "łatwy" and @rounds >= 4
+			"knight"
+		elsif @level == "łatwy"
+			"pawn"
 		end
 	end
 	
@@ -36,6 +50,7 @@ class Scoreboard
 		@scores.append(score)
 		
 		sort_by_score
+		#puts @scores
 		
 		if @scores.length > @size
 			remove_last
@@ -43,7 +58,7 @@ class Scoreboard
 	end
 	
 	def sort_by_score
-		@scores = @scores.sort_by{ |obj| [-obj.score, obj.name] }
+		@scores = @scores.sort_by{ |obj| [obj.level.reverse, -obj.rounds] }
 	end
 	
 	def remove_last
@@ -52,7 +67,7 @@ class Scoreboard
 	
 	def to_s
 		ret = "\nWyniki (top #{@size})\n--------\n"
-		ret += "Imię | Poziomy | Wynik\n"
+		ret += "Imię | Poziomy | Ranga\n"
 		p = 1
 		for obj in @scores
 			ret += "#{p}. #{obj}\n"
@@ -88,7 +103,6 @@ def tests()
 	sb.append(s3)
 	
 	puts sb
-	#puts sb.to_txt
 end
 
-#tests()
+# tests()

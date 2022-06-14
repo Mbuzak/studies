@@ -1,3 +1,4 @@
-pies,4,2,normalny
-ryba,3,2,normalny
-kot,2,2,normalny
+karol,26,5,trudny
+anonim,17,3,trudny
+kot,21,2,normalny
+wojtek,9,1,łatwy

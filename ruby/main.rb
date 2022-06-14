@@ -3,33 +3,22 @@ $LOAD_PATH.unshift(local_dir)
 
 require "score.rb"
 require "game.rb"
-require 'timeout'
 
 
-$times = []
-$tries = []
-
-$range = [1, 2]
-
-start = 0
-finish = 0
-
+$range = [1, 128]
 $difficulty_level = "normalny"
 $levels = {"1" => "łatwy", "2" => "normalny" ,"3" => "trudny"}
 
 $scoreboard = Scoreboard.new(10)
+$rounds = 7
 
-$user = "anonim"
-$rounds = 2
-
-
-=begin
-
-def get_max_time(level)
-	return (Math.log(($number_max - $number_min + 1), 2) * $difficulty_option[level][1]).to_i
+def clear_screen
+	if ENV['OS'] =~ /Windows_NT/
+		system("cls")
+	else
+		system("clear")
+	end
 end
-
-=end
 
 
 def set_user
@@ -61,7 +50,9 @@ end
 
 class Menu
 	def show_menu
-		puts("Gra w zgadywanie")
+		puts
+		puts("\tGra w zgadywanie")
+		puts
 		puts("  (1) Nowa gra")
 		puts("  (2) Poziom trudności: #{$difficulty_level}")
 		puts("  (3) Wyniki")
@@ -70,16 +61,16 @@ class Menu
 	end
 	
 	def show_results
-		system("cls")
+		clear_screen
 		puts $scoreboard
 		puts
 		puts "Naciśniej ENTER aby wrócić do menu..."
 		gets
-		system("cls")
+		clear_screen
 	end
 
 	def choice_level
-		system("cls")
+		clear_screen
 		puts "Wybierz poziom trudności"
 		puts "1. Łatwy\n2. Normalny\n3. Trudny"
 		
@@ -88,29 +79,32 @@ class Menu
 			level_choice = gets.chomp
 			if $levels[level_choice] != nil
 				$difficulty_level = $levels[level_choice]
-				system("cls")
+				clear_screen
 				break
 			end
 		end
 	end
 end
 
+# ---------
+# MAIN
+
 menu = Menu.new
 load
 
-# ---------
-# MAIN
 loop do
 	running = true
 	
 	# menu loop
 	loop do
+		clear_screen
 		menu.show_menu
 		print "> "
 		option = gets.chomp
 		
 		if option == "4"
 			save
+			clear_screen
 			exit
 		elsif option == "3"
 			menu.show_results
@@ -123,12 +117,13 @@ loop do
 		end
 	end
 	
+	clear_screen
 	game = Game.new($difficulty_level, $rounds, $range)
 	game.game
 
 	if game.results.length > 0
-		$user = set_user()
-		score = Score.new($user, game.results.sum, game.count_rounds, $difficulty_level)
+		user = set_user
+		score = Score.new(user, game.results.sum, game.count_rounds, $difficulty_level)
 		$scoreboard.append(score)
 	end
 end
